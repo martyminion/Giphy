@@ -17,31 +17,44 @@ export class GridComponent implements OnInit {
   ]
   newGif = new Gif("")
   ngOnInit(): void {
+   
     this.getTrending()
-
+    
   }
+
   getTrending() {
     const gf = new GiphyFetch('kp565aEitjQhd24gmHi5vTqIwxWB81iU')
-    setTimeout(() => {
+    let neep = [];
+    //setTimeout(() => {
+    
+    async function getgif() {
+      let data = await gf.trending({ limit: 10, offset: 25 });
       let urlarray = [];
-      async function getgif() {
-        let data = await gf.trending({ limit: 10, offset: 25 });
-        
-        //console.log(data.data[0].images.downsized_large.url)
-        for (let i = 0; i < 10; i++) {
-          let gifurls = data.data[i].images.downsized_large.url
-          urlarray.push(gifurls)
-          //console.log(gifurls)
-        }
-        console.log(urlarray)
+      //console.log(data.data[0].images.downsized_large.url)
+      for (let i = 0; i < 10; i++) {
+        let gifurls = data.data[i].images.downsized_large.url
+        urlarray.push(gifurls)
+        //console.log(gifurls)
       }
-      getgif()
-    }, 0)
+      //console.log(urlarray)
+      //console.log(neep)
+      return urlarray
+    }
+    getgif().then((val)=> 
+    {for(let i=0;i<10;i++){
+      //this.url = val[i]
+      this.gifs.push(new Gif(val[i]))
+    }
+  })
+    // }, 0)
+   // console.log(neep)
     
   }
 }
 
-// 
+
+
+
 
 
 //    getGifs(){
