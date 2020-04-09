@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1, 
+  "version": 1,
   "newProjectRoot": "projects",
   "projects": {
     "GiphyM": {
@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "GiphyM"
+    }
+  },
+  "defaultProject": "GiphyM",
+  "cli": {
+    "analytics": "1fad14f8-d909-4eb9-a436-77f0cf13c1c2"
+  }
 }

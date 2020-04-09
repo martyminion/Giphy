@@ -22,18 +22,21 @@ export class GridComponent implements OnInit {
   }
   getTrending() {
     const gf = new GiphyFetch('kp565aEitjQhd24gmHi5vTqIwxWB81iU')
-    async function getgif() {
-      let data = await gf.trending({ limit: 10, offset: 25 });
+    setTimeout(() => {
       let urlarray = [];
-      //console.log(data.data[0].images.downsized_large.url)
-      for (let i = 0; i < 10; i++) {
-        let gifurls = data.data[i].images.downsized_large.url
-        urlarray.push(gifurls)
-        //console.log(gifurls)
+      async function getgif() {
+        let data = await gf.trending({ limit: 10, offset: 25 });
+        
+        //console.log(data.data[0].images.downsized_large.url)
+        for (let i = 0; i < 10; i++) {
+          let gifurls = data.data[i].images.downsized_large.url
+          urlarray.push(gifurls)
+          //console.log(gifurls)
+        }
+        console.log(urlarray)
       }
-      console.log(urlarray)
-    }
-    getgif()
+      getgif()
+    }, 0)
     
   }
 }
