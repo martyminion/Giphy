@@ -1,0 +1,9 @@
+<script src="./grid/index.ts"></script>
+<h1>Testing grid</h1>
+<button class="btn btn-primary" (click)='getTrending()'>Press Here
+</button>
+<div id="grid" class="grid" *ngFor='let gif of gifs;let i = index'>
+  <img src="{{gif.url}}" alt="">
+</div>
+
+
