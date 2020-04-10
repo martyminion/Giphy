@@ -1,9 +1,24 @@
 <script src="./grid/index.ts"></script>
 <h1>Testing grid</h1>
-<button class="btn btn-primary" (click)='getTrending()'>Press Here
-</button>
-<div id="grid" class="grid" *ngFor='let gif of gifs;let i = index'>
-  <img src="{{gif.url}}" alt="">
+<div id="grid" class="grid">
+  <div class="row">
+    <div class="col-md-4" *ngFor='let gif of gifs;let i = index'>
+      <img src="{{gif.url}}" alt="">
+    </div>
+  </div>
 </div>
-
-
+<div>
+  <form #searchForm='ngForm' (ngSubmit)='getsearch()'>
+    <label for="serch">Please enter search parameter</label>
+    <input type="text" id="param" name="param" [(ngModel)]="newSearch.searchparam">
+    <br>
+    <button class="btn btn-primary" type="submit">Press Here</button>
+  </form>
+</div>
+<div id="searchgrid" class="searchgrid">
+  <div class="row">
+    <div class="col-md-4" *ngFor='let urlssearch of urlssearchs;let i = index'>
+      <img src="{{urlssearch.searchurl}}" alt="">
+    </div>
+  </div>
+</div>

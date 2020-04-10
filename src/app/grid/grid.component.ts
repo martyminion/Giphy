@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { GiphyFetch } from '@giphy/js-fetch-api'
 import { Gif } from './grid'
-import { element } from 'protractor';
+import {Search} from './grid'
+import {SearchGif} from './grid'
 
 @Component({
   selector: 'app-grid',
@@ -12,48 +13,56 @@ import { element } from 'protractor';
 export class GridComponent implements OnInit {
 
   url: string;
-  gifs: Gif[] = [
-    new Gif("https://media1.giphy.com/media/XdVqLSJXm35YGdecdG/giphy.gif?cid=0ed7a7a150d22d2cbfff1d1bcff3dbbab484b64da5f77037&rid=giphy.gif")
-  ]
-  newGif = new Gif("")
+  searchterm: Search[]=[]
+  gifs: Gif[] = []
+  urlssearchs:SearchGif[]=[]
+
+  newSearch = new Search("")
+ 
   ngOnInit(): void {
-   
+
     this.getTrending()
-    
+
   }
 
   getTrending() {
     const gf = new GiphyFetch('kp565aEitjQhd24gmHi5vTqIwxWB81iU')
-    let neep = [];
-    //setTimeout(() => {
-    
     async function getgif() {
-      let data = await gf.trending({ limit: 10, offset: 25 });
+      let data = await gf.trending({ limit: 6, offset: 25 });
       let urlarray = [];
-      //console.log(data.data[0].images.downsized_large.url)
-      for (let i = 0; i < 10; i++) {
+      
+      for (let i = 0; i < 6; i++) {
         let gifurls = data.data[i].images.downsized_large.url
         urlarray.push(gifurls)
-        //console.log(gifurls)
       }
-      //console.log(urlarray)
-      //console.log(neep)
       return urlarray
     }
-    getgif().then((val)=> 
-    {for(let i=0;i<10;i++){
-      //this.url = val[i]
-      this.gifs.push(new Gif(val[i]))
-    }
-  })
-    // }, 0)
-   // console.log(neep)
-    
+    getgif().then((val) => {
+      for (let i = 0; i < 6; i++) {
+        this.gifs.push(new Gif(val[i]))
+      }
+    })
   }
+  getsearch() {
+    const gf = new GiphyFetch('kp565aEitjQhd24gmHi5vTqIwxWB81iU')
+    let search = this.newSearch.searchparam
+    async function getsearchgif() {
+      let searchArray = []
+      const result = await gf.search( search, { sort: "recent", limit: 6 });
+      for(let i = 0;i<result.data.length;i++){
+        searchArray.push(result.data[i].images.downsized_large.url)
+      }
+      return searchArray
+    }
+    getsearchgif().then((val)=> {
+      for (let i = 0; i < 6; i++) {
+        this.urlssearchs.push(new SearchGif(val[i]))
+      }
+    })
+  }
+
+
 }
-
-
-
 
 
 
@@ -78,4 +87,4 @@ export class GridComponent implements OnInit {
 //   }
 // };
 
-     //const data = async() => await gf.trending({limit:10,offset:25}); 
+//const data = async() => await gf.trending({limit:10,offset:25})
